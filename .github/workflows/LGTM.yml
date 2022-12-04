@@ -1,0 +1,15 @@
+name: LGTM
+
+on:
+  pull_request:
+
+jobs:
+  start-commenting:
+    runs-on: ubuntu-latest
+    steps:
+      - name: start-commenting
+        uses: thollander/actions-comment-pull-request@v1
+        with:
+          message: |
+            [![LGTM](https://lgtm.lol/p/659)](https://lgtm.lol/i/659)
+          GITHUB_TOKEN: ${{ secrets.SECRET_TOKEN }}
