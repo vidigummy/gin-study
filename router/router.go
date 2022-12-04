@@ -1,12 +1,15 @@
-func route() {
+package router
+
+import (
+	"github.com/dev-yakuza/study-golang/gin/start/github"
+	"github.com/gin-gonic/gin"
+)
+
+func SetupRouter() *gin.Engine {
 	router := gin.Default()
-
-	v0 := route.Group("/user"){
-		v0.GET("/",)
+	root := router.Group("/")
+	{
+		root.GET("/", github.GetUserInfo)
 	}
-	v1 := router.Group("/ping"){
-
-	}
-
-	
+	return router
 }

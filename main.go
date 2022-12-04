@@ -1,6 +1,9 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/dev-yakuza/study-golang/gin/start/router"
+	"github.com/gin-gonic/gin"
+)
 
 func setupRouter() *gin.Engine {
 	r := gin.Default()
@@ -14,6 +17,6 @@ func setupRouter() *gin.Engine {
 }
 
 func main() {
-	r := setupRouter()
+	r := router.SetupRouter()
 	r.Run(":8080")
 }
