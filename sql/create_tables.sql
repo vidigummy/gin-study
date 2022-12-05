@@ -1,5 +1,5 @@
 CREATE TABLE users(
-    idx BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     user_name VARCHAR(255) NOT NULL ,
     email VARCHAR(255) NOT NULL,
     created_at TIMESTAMP NOT NULL default current_timestamp,
@@ -14,7 +14,7 @@ CREATE TABLE user_languages(
     created_at TIMESTAMP NOT NULL default current_timestamp,
     updated_at TIMESTAMP not null default current_timestamp on update current_timestamp,
     deleted_at TIMESTAMP,
-    FOREIGN KEY (user_idx) REFERENCES users(idx) ON DELETE CASCADE
+    FOREIGN KEY (user_idx) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE language_exps(

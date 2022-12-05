@@ -28,3 +28,12 @@ func ResistNewUser(c *gin.Context) {
 	}
 	c.String(200, "OK")
 }
+
+func FindUserWithName(c *gin.Context) {
+	userName := c.Param("username")
+	user, err := models.GetUserFromName(userName)
+	if err != nil {
+		c.String(500, err.Error())
+	}
+	c.JSON(200, models.UserToString(user))
+}
