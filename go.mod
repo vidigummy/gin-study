@@ -8,6 +8,7 @@ require (
 	github.com/go-playground/locales v0.14.0 // indirect
 	github.com/go-playground/universal-translator v0.18.0 // indirect
 	github.com/go-playground/validator/v10 v10.11.1 // indirect
+	github.com/go-sql-driver/mysql v1.7.0 // indirect
 	github.com/goccy/go-json v0.10.0 // indirect
 	github.com/google/go-github/v48 v48.1.1-0.20221201225245-0621dee41764 // indirect
 	github.com/google/go-querystring v1.1.0 // indirect

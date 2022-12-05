@@ -5,13 +5,11 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/gin-gonic/gin"
 	"github.com/google/go-github/v48/github"
 )
 
-func GetUserInfo(c *gin.Context) {
+func GetUserInfo(userName string) (map[string]int, error) {
 	// 내 레포에 어떤 언어가 얼마나 있는지 확인할 수 있음.
-	userName := "vidigummy"
 	repoList, err := getRepo(userName)
 	if err != nil {
 		fmt.Println(err)
@@ -41,7 +39,7 @@ func GetUserInfo(c *gin.Context) {
 		}
 	}
 	fmt.Println(languageMap)
-	c.JSON(200, languageMap)
+	return languageMap, nil
 }
 
 func getRepo(username string) ([]string, error) {
