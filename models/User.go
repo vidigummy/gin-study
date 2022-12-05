@@ -10,7 +10,7 @@ import (
 
 type User struct {
 	gorm.Model
-	Idx      int64 `json:"idx" gorm:"primary_key"`
+	Id       int64 `json:"idx" gorm:"primary_key"`
 	UserName string
 	Email    string
 }
@@ -22,7 +22,7 @@ func SetUser(username string, email string) *User {
 
 func UserToString(u *User) map[string]string {
 	var result = make(map[string]string)
-	result["Idx"] = strconv.FormatInt(u.Idx, 10)
+	result["Id"] = strconv.FormatInt(u.Id, 10)
 	result["UserName"] = u.UserName
 	result["Email"] = u.Email
 	return result
