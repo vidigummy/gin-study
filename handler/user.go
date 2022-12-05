@@ -14,6 +14,10 @@ func GetUserUsingLanguageFromGithub(c *gin.Context) {
 	if err != nil {
 		panic(err)
 	}
+	err = models.SetUserUseLanguagesMap(userLanguageMap, userName)
+	if err != nil {
+		c.Status(500)
+	}
 	c.JSON(200, userLanguageMap)
 }
 

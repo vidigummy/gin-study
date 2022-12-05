@@ -10,9 +10,10 @@ import (
 
 type User struct {
 	gorm.Model
-	Idx      int64 `json:"idx" gorm:"primary_key"`
-	UserName string
-	Email    string
+	Id            int64 `json:"id" gorm:"primary_key"`
+	UserName      string
+	Email         string
+	UserLanguages []UserLanguage `gorm:"foreignKey:UserIdx"`
 }
 
 func SetUser(username string, email string) *User {
@@ -22,7 +23,7 @@ func SetUser(username string, email string) *User {
 
 func UserToString(u *User) map[string]string {
 	var result = make(map[string]string)
-	result["Idx"] = strconv.FormatInt(u.Idx, 10)
+	result["Id"] = strconv.FormatInt(u.Id, 10)
 	result["UserName"] = u.UserName
 	result["Email"] = u.Email
 	return result
@@ -40,7 +41,6 @@ func CommitUser(u *User) error {
 func GetUserFromName(userName string) (*User, error) {
 	db := database.Database()
 	var result User
-	// db.Model(User{UserName: userName}).First(&result)\
 	db.First(&result, "user_name = ?", userName)
 	if result.UserName != "" {
 		return &result, nil
