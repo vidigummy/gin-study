@@ -1,21 +1,30 @@
-CREATE TABLE user(
-    idx BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT ,
+CREATE TABLE users(
+    idx BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     user_name VARCHAR(255) NOT NULL ,
-    email VARCHAR(255) NOT NULL
+    email VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP NOT NULL default current_timestamp,
+    updated_at TIMESTAMP not null default current_timestamp on update current_timestamp,
+    deleted_at TIMESTAMP
 );
-CREATE TABLE user_language(
-    idx BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT ,
+CREATE TABLE user_languages(
+    idx BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     user_idx BIGINT NOT NULL,
     use_language VARCHAR(50) NOT NULL,
     amount BIGINT NOT NULL,
-    FOREIGN KEY (user_idx) REFERENCES user(idx) ON DELETE CASCADE
+    created_at TIMESTAMP NOT NULL default current_timestamp,
+    updated_at TIMESTAMP not null default current_timestamp on update current_timestamp,
+    deleted_at TIMESTAMP,
+    FOREIGN KEY (user_idx) REFERENCES users(idx) ON DELETE CASCADE
 );
 
-CREATE TABLE language_exp(
+CREATE TABLE language_exps(
     idx BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     language_name VARCHAR(255) NOT NULL,
-    exp_ratio FLOAT NOT NULL
+    exp_ratio FLOAT NOT NULL,
+    created_at TIMESTAMP NOT NULL default current_timestamp,
+    updated_at TIMESTAMP not null default current_timestamp on update current_timestamp,
+    deleted_at TIMESTAMP
 );
 
-ALTER TABLE user ADD CONSTRAINT USER_IDX UNIQUE (email);
-ALTER TABLE user_language ADD CONSTRAINT USER_LANGUAGE_IDX UNIQUE (user_idx, use_language);
+ALTER TABLE users ADD CONSTRAINT USER_IDX UNIQUE (email);
+ALTER TABLE user_languages ADD CONSTRAINT USER_LANGUAGE_IDX UNIQUE (user_idx, use_language);

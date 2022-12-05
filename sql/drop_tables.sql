@@ -1,5 +1,4 @@
-
-
-DROP TABLE user_language_exp;
-DROP TABLE user_language;
-DROP TABLE user;
+DROP VIEW USER_LANGUAGE_EXP
+DROP TABLE language_exps;
+DROP TABLE user_languages;
+DROP TABLE users;

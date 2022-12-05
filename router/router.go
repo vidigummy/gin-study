@@ -14,7 +14,7 @@ func SetupRouter() *gin.Engine {
 	user := router.Group("/user")
 	{
 		user.GET("/:username", handler.GetUserUsingLanguageFromGithub)
-
+		user.GET("/new/:username/:email", handler.ResistNewUser)
 	}
 	return router
 }
