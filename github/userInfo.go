@@ -1,4 +1,4 @@
-package main
+package github
 
 import (
 	"context"
@@ -39,6 +39,7 @@ func GetUserInfo(userName string) (map[string]int, error) {
 		}
 	}
 	fmt.Println(languageMap)
+	return languageMap, nil
 }
 
 func getRepo(username string) ([]string, error) {
