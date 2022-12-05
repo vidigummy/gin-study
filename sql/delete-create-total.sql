@@ -12,7 +12,7 @@ CREATE TABLE users(
     deleted_at TIMESTAMP
 );
 CREATE TABLE user_languages(
-    idx BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     user_idx BIGINT NOT NULL,
     use_language VARCHAR(50) NOT NULL,
     amount BIGINT NOT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE user_languages(
 );
 
 CREATE TABLE language_exps(
-    idx BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     language_name VARCHAR(255) NOT NULL,
     exp_ratio FLOAT NOT NULL,
     created_at TIMESTAMP NOT NULL default current_timestamp,
