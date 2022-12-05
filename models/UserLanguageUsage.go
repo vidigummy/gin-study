@@ -26,7 +26,7 @@ func SetUserLanguage(userName string, language string, amount int64) *UserLangua
 }
 
 func CommitUserLanguage(l *UserLanguage) error {
-	_, err := GetUserLanguage(l.UserIdx, l.UseLanguage)
+	result, err := GetUserLanguage(l.UserIdx, l.UseLanguage)
 	if err != nil {
 		// 중복이 없다면.
 		fmt.Println("Not duplicate!")
@@ -38,9 +38,17 @@ func CommitUserLanguage(l *UserLanguage) error {
 		return nil
 	}
 	// 중복이라면
-	return errors.New("Duplicate!")
+	if result.Amount != l.Amount {
+		UpdateUserLanguage(l, result)
+		return nil
+	}
+	return nil
 }
-
+func UpdateUserLanguage(l *UserLanguage, old *UserLanguage) {
+	old.Amount = l.Amount
+	db := database.Database()
+	db.Save(&old)
+}
 func GetUserLanguage(userIdx int64, language string) (*UserLanguage, error) {
 
 	db := database.Database()
