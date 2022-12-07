@@ -35,13 +35,14 @@ func LoginUser(c *gin.Context) {
 }
 
 func SignUp(c *gin.Context) {
+	// Body값 확인
 	req := &models.LoginUser{}
 	err := c.Bind(req)
 	if err != nil {
 		c.Error(errors.New("Can't Find User Request Body"))
 		return
 	}
-	fmt.Println(req)
+	// 로그인 되는지?
 	_, err = models.GetUserFromName(req.UserName)
 	if err == nil {
 		c.String(409, "중복됩니다~")

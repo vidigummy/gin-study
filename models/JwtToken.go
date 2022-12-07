@@ -35,3 +35,17 @@ func (user *LoginUser) GetJwtToken() (string, error) {
 	}
 	return tokenString, nil
 }
+
+func VerifyToken(token string) error {
+	claims := &AuthTokenClaims{}
+	result, err := jwt.ParseWithClaims(token, claims, func(token *jwt.Token) (interface{}, error) {
+		return JwtKey, nil
+	})
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+	fmt.Println(result)
+	return nil
+
+}
