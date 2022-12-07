@@ -5,8 +5,8 @@ DROP TABLE users;
 
 CREATE TABLE users(
     id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    user_name VARCHAR(255) NOT NULL ,
-    email VARCHAR(255) NOT NULL,
+    user_name VARCHAR(255) NOT NULL,
+    user_password VARCHAR(255) NOT NULL,
     created_at TIMESTAMP NOT NULL default current_timestamp,
     updated_at TIMESTAMP not null default current_timestamp on update current_timestamp,
     deleted_at TIMESTAMP
@@ -31,11 +31,12 @@ CREATE TABLE language_exps(
     deleted_at TIMESTAMP
 );
 
-ALTER TABLE users ADD CONSTRAINT USER_IDX UNIQUE (email);
+ALTER TABLE users ADD CONSTRAINT USER_IDX UNIQUE (user_name);
 ALTER TABLE user_languages ADD CONSTRAINT USER_LANGUAGE_IDX UNIQUE (user_idx, use_language);
 
 
-INSERT INTO RPG.users (user_name, email) VALUES ('fakeVidi', 'fakeVidi@gmail.com');
+INSERT INTO RPG.users (user_name, user_password) VALUES ('fakeVidi', 'test');
+INSERT INTO RPG.users (user_name, user_password) VALUES ('vidigummy', 'dddd');
 INSERT INTO RPG.user_languages (user_idx, use_language, amount) VALUES (1, 'Java', 10000000);
 INSERT INTO RPG.user_languages (user_idx, use_language, amount) VALUES (1, 'Go', 400000);
 INSERT INTO RPG.user_languages (user_idx, use_language, amount) VALUES (1, 'Python', 1000000);
