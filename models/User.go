@@ -12,12 +12,12 @@ type User struct {
 	gorm.Model
 	Id            int64 `json:"id" gorm:"primary_key"`
 	UserName      string
-	Email         string
+	UserPassword  string
 	UserLanguages []UserLanguage `gorm:"foreignKey:UserIdx"`
 }
 
-func SetUser(username string, email string) *User {
-	newUser := User{UserName: username, Email: email}
+func SetUser(username string, pw string) *User {
+	newUser := User{UserName: username, UserPassword: pw}
 	return &newUser
 }
 
@@ -25,13 +25,13 @@ func UserToString(u *User) map[string]string {
 	var result = make(map[string]string)
 	result["Id"] = strconv.FormatInt(u.Id, 10)
 	result["UserName"] = u.UserName
-	result["Email"] = u.Email
+	result["UserPassword"] = u.UserPassword
 	return result
 }
 
 func CommitUser(u *User) error {
 	db := database.Database()
-	result := db.Create(&User{UserName: u.UserName, Email: u.Email})
+	result := db.Create(&User{UserName: u.UserName, UserPassword: u.UserPassword})
 	if result.Error != nil {
 		return result.Error
 	}

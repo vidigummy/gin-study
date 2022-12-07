@@ -1,7 +1,7 @@
 CREATE TABLE users(
     id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    user_name VARCHAR(255) NOT NULL ,
-    email VARCHAR(255) NOT NULL,
+    user_name VARCHAR(255) NOT NULL,
+    user_password VARCHAR(255) NOT NULL,
     created_at TIMESTAMP NOT NULL default current_timestamp,
     updated_at TIMESTAMP not null default current_timestamp on update current_timestamp,
     deleted_at TIMESTAMP
@@ -26,5 +26,5 @@ CREATE TABLE language_exps(
     deleted_at TIMESTAMP
 );
 
-ALTER TABLE users ADD CONSTRAINT USER_IDX UNIQUE (email);
+ALTER TABLE users ADD CONSTRAINT USER_IDX UNIQUE (user_name);
 ALTER TABLE user_languages ADD CONSTRAINT USER_LANGUAGE_IDX UNIQUE (user_idx, use_language);
