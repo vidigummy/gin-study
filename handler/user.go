@@ -23,8 +23,8 @@ func GetUserUsingLanguageFromGithub(c *gin.Context) {
 
 func ResistNewUser(c *gin.Context) {
 	newUserName := c.Param("username")
-	newUserEmail := c.Param("email")
-	newUser := models.SetUser(newUserName, newUserEmail)
+	newUserPassword := c.Param("password")
+	newUser := models.SetUser(newUserName, newUserPassword)
 	fmt.Println(newUser)
 	err := models.CommitUser(newUser)
 	if err != nil {
@@ -40,4 +40,27 @@ func FindUserWithName(c *gin.Context) {
 		c.String(500, err.Error())
 	}
 	c.JSON(200, models.UserToString(user))
+}
+
+func LoginUser(c *gin.Context) {
+	req := &models.LoginUser{}
+	err := c.Bind(req)
+	if err != nil {
+		c.JSON(500, err.Error())
+		return
+	}
+	fmt.Println(req.UserName)
+	nowUserName := req.UserName
+	user, err := models.GetUserFromName(nowUserName)
+	if err != nil {
+		c.JSON(403, err.Error())
+		c.Abort()
+	}
+	if user.UserPassword != req.Password {
+		c.JSON(403, err.Error())
+		c.Abort()
+	}
+
+	c.Status(200)
+
 }
