@@ -2,6 +2,7 @@ package models
 
 import (
 	"errors"
+	"fmt"
 	"strconv"
 
 	"github.com/dev-yakuza/study-golang/gin/start/database"
@@ -42,6 +43,7 @@ func GetUserFromName(userName string) (*User, error) {
 	db := database.Database()
 	var result User
 	db.First(&result, "user_name = ?", userName)
+	fmt.Println(userName, result.CreatedAt)
 	if result.UserName != "" {
 		return &result, nil
 	}

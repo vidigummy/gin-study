@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/dev-yakuza/study-golang/gin/start/github"
@@ -58,9 +59,36 @@ func LoginUser(c *gin.Context) {
 	}
 	if user.UserPassword != req.Password {
 		c.JSON(403, err.Error())
-		c.Abort()
 	}
-
+	newToken, err := req.GetJwtToken()
+	if err != nil {
+		fmt.Println(err)
+	}
+	c.SetCookie("access_token", newToken, 1800, "", "", false, false)
 	c.Status(200)
 
+}
+
+func SignUp(c *gin.Context) {
+	req := &models.LoginUser{}
+	err := c.Bind(req)
+	if err != nil {
+		c.Error(errors.New("Can't Find User Request Body"))
+		return
+	}
+	fmt.Println(req)
+	_, err = models.GetUserFromName(req.UserName)
+	if err == nil {
+		c.String(409, "중복됩니다~")
+	}
+	newUser := models.SetUser(req.UserName, req.Password)
+	models.CommitUser(newUser)
+	newToken, err := req.GetJwtToken()
+	if err != nil || newToken == "" {
+		fmt.Println(err)
+		c.String(500, "fucked Up")
+	}
+	fmt.Println("New Token is : ", newToken)
+	c.SetCookie("access_token", newToken, 1800, "", "", false, false)
+	c.Status(200)
 }
