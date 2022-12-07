@@ -22,7 +22,7 @@ func SetUser(username string, pw string) *User {
 	return &newUser
 }
 
-func UserToString(u *User) map[string]string {
+func (u *User) UserToString() map[string]string {
 	var result = make(map[string]string)
 	result["Id"] = strconv.FormatInt(u.Id, 10)
 	result["UserName"] = u.UserName
@@ -30,7 +30,7 @@ func UserToString(u *User) map[string]string {
 	return result
 }
 
-func CommitUser(u *User) error {
+func (u *User) CommitUser() error {
 	db := database.Database()
 	result := db.Create(&User{UserName: u.UserName, UserPassword: u.UserPassword})
 	if result.Error != nil {

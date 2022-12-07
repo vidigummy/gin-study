@@ -28,9 +28,7 @@ func (user *LoginUser) GetJwtToken() (string, error) {
 	}
 	fmt.Println(claims)
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	// fmt.Println(token.SigningString())
 	tokenString, err := token.SignedString(JwtKey)
-	// fmt.Println(&tokenString)
 	if err != nil {
 		println(err.Error())
 		return "", errors.New("Token signing failed")
