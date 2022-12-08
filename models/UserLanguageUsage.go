@@ -25,7 +25,7 @@ func SetUserLanguage(userName string, language string, amount int64) *UserLangua
 	return &newLanguage
 }
 
-func CommitUserLanguage(l *UserLanguage) error {
+func (l *UserLanguage) CommitUserLanguage() error {
 	result, err := GetUserLanguage(l.UserIdx, l.UseLanguage)
 	if err != nil {
 		// 중복이 없다면.
@@ -39,12 +39,12 @@ func CommitUserLanguage(l *UserLanguage) error {
 	}
 	// 중복이라면
 	if result.Amount != l.Amount {
-		UpdateUserLanguage(l, result)
+		l.UpdateUserLanguage(result)
 		return nil
 	}
 	return nil
 }
-func UpdateUserLanguage(l *UserLanguage, old *UserLanguage) {
+func (l *UserLanguage) UpdateUserLanguage(old *UserLanguage) {
 	old.Amount = l.Amount
 	db := database.Database()
 	db.Save(&old)
@@ -63,7 +63,7 @@ func GetUserLanguage(userIdx int64, language string) (*UserLanguage, error) {
 func SetUserUseLanguagesMap(m map[string]int, userName string) error {
 	for key, value := range m {
 		newLanguage := SetUserLanguage(userName, key, int64(value))
-		err := CommitUserLanguage(newLanguage)
+		err := newLanguage.CommitUserLanguage()
 		if err != nil {
 			return err
 		}

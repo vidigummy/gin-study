@@ -15,11 +15,11 @@ func SetupRouter() *gin.Engine {
 	user := router.Group("/user")
 	{
 		user.Use(middleware.SayHiMiddle)
-		user.GET("/:username", handler.GetUserUsingLanguageFromGithub)
+		user.GET("/github/:username", handler.GetUserUsingLanguageFromGithub)
 		user.GET("/new/:username/:password", handler.ResistNewUser)
 		user.GET("/find/:username", handler.FindUserWithName)
 		user.POST("/login", handler.LoginUser)
-
+		user.POST("/signup", handler.SignUp)
 	}
 	authTest := router.Group("/auth")
 	{
